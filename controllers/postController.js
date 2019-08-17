@@ -1,5 +1,7 @@
 const Post = require('../models/Post');
 const jwt = require('jsonwebtoken');
+const sendgrid = require('@sendgrid/mail');
+sendgrid.setApiKey(process.env.SENDGRIDAPIKEY);
 
 exports.viewCreateScreen = function(req, res){
     res.render('create-post', {
@@ -14,6 +16,14 @@ exports.create = function(req, res){
     post.create()
 
     .then(function(post_id){
+        sendgrid.send({
+            to: "daniel.zawadzki4@gmail.com",
+            from: "test@test.pl",
+            subject: "Congrats on Creating a New Post",
+            text: "You did a great job.",
+            html: 'You did <strong>great job</strong> of creating a post.'
+
+        });
         req.flash('success', "New post successfuly created");
         req.session.save(() => res.redirect(`/post/${post_id}`));
     })
