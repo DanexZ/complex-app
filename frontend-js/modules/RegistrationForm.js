@@ -87,12 +87,6 @@ class RegistrationForm{
         this.passwordImmediately();
         this.passwordAfterDelay();
 
-        console.log(this.username.isUnique)
-        console.log(!this.username.errors)
-        console.log(this.email.isUnique)
-        console.log(!this.email.errors)
-        console.log(!this.password.errors)
-
         if( this.username.isUnique && !this.username.errors && this.email.isUnique &&
             !this.email.errors && !this.password.errors)
             {
